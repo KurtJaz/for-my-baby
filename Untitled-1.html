@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Untitled-jaz.css">
+    <title>Happy 37th Monthsary!!</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rae Dunn', sans-serif;
+            background: linear-gradient(135deg, #e072bb 50%, #e07fd0 50%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .message-dashboard {
+            background: rgb(233, 122, 196);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .message-dashboard::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #f174dd, #764ba2, #f093fb);
+        }
+
+        .message-title {
+            font-size: 2em;
+            color: #000000;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .message-content {
+            font-size: 1.2em;
+            color: #000000;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f9acfc;
+            border-radius: 15px;
+            border-left: 4px solid #fcabf5;
+        }
+
+        .message-signature {
+            margin-top: 20px;
+            font-style: italic;
+            color: #000000;
+            font-size: 1.1em;
+        }
+
+        .gallery-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .gallery-header h2 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .gallery-header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .media-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .media-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+
+        .media-container {
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+            background: #f0f0f0;
+            position: relative;
+        }
+
+        .media-container img,
+        .media-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #667eea;
+            pointer-events: none;
+        }
+
+        .media-info {
+            padding: 20px;
+        }
+
+        .media-caption {
+            font-size: 1.05em;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .media-date {
+            font-size: 0.9em;
+            color: #999;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+
+        .modal-content img,
+        .modal-content video {
+            max-width: 100%;
+            max-height: 85vh;
+            border-radius: 10px;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.5);
+        }
+
+        .modal-caption {
+            color: white;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+
+        .close-modal {
+            position: fixed;
+            top: 30px;
+            right: 40px;
+            color: white;
+            font-size: 45px;
+            cursor: pointer;
+            z-index: 1001;
+            transition: transform 0.2s;
+        }
+
+        .close-modal:hover {
+            transform: scale(1.2);
+        }
+
+        .nav-arrows {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 50px;
+            cursor: pointer;
+            z-index: 1001;
+            background: rgba(255,255,255,0.1);
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+
+        .nav-arrows:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .nav-prev {
+            left: 20px;
+        }
+
+        .nav-next {
+            right: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .message-dashboard {
+                padding: 25px;
+            }
+
+            .message-title {
+                font-size: 1.5em;
+            }
+
+            .message-content {
+                font-size: 1em;
+            }
+
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+  <div class="overlay-stickers">
+    <img src="https://image2url.com/r2/default/images/1769338538290-cad4bc41-9831-4f94-b578-449c5c93003f.png" class="sticker sticker-1" alt="Sticker 1">
+    <img src="https://image2url.com/r2/default/images/1769338106755-f44652c8-7d27-44ba-89f7-d00e221fd1c7.png" class="sticker sticker-2" alt="Sticker 2">
+    <img src="https://image2url.com/r2/default/images/1769338341261-35bba1a4-3576-485e-98f3-9d3acd0f081a.png" class="sticker sticker-3" alt="Sticker 3">
+</div
+
+    <div class="container">
+        <div class="message-dashboard">
+            <h1 class="message-title">Happy Anniversary, Pookie
+            </h1>
+            <div class="message-content">
+                Hi babyyy, Happy Anniversary. I hope U liked my simple HTML na gawa ku ehe, Thank you so much for believeing in me, I hope for your best days to come. Dw baby, pag nag ka pera ako date na tayo.
+                <div class="message-signature">— kurt/zen ❤️</div>
+            </div> 
+        </div>
+
+        <div class="gallery-header">
+            <h2>pictures</h2>
+            <p>Click on any photo or video to view it in full screen</p>
+        </div>
+
+        <div class="gallery" id="gallery"></div>
+    </div>
+
+    <div class="modal" id="modal">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <div class="nav-arrows nav-prev" onclick="navigateMedia(-1)">‹</div>
+        <div class="nav-arrows nav-next" onclick="navigateMedia(1)">›</div>
+        <div>
+            <div class="modal-content" id="modalContent"></div>
+            <div class="modal-caption" id="modalCaption"></div>
+        </div>
+    </div>
+
+    <script>
+        // Sample media items - replace these with your actual photos and videos
+        const mediaItems = [
+            {
+                type: 'image',
+                url: 'https://image2url.com/r2/default/images/1769326989233-2dfcd5fa-91ab-455e-9bc7-11fc9c5348f5.jpg',
+                caption: 'Our First Dit hehe',
+                date: '2022'
+            },
+            {
+                type: 'image',
+                url: 'https://image2url.com/r2/default/images/1769330426839-68f6cdb7-400b-44fb-8603-ce0883f2f19c.jpg',
+                caption: 'bahay date natin noon ehe',
+                date: '2023'
+            },
+            {
+                type: 'image',
+                url:'https://image2url.com/r2/default/images/1769336634152-0fd931eb-2d09-47bb-a293-956cce402c18.jpg',
+                caption: 'unang date natin, 2nd monthsary',
+                date: '2024, January'
+            },
+            {
+                type: 'image',
+                url: 'https://image2url.com/r2/default/images/1769337004225-991d702f-01aa-4454-8ab0-08463632a8c4.jpg',
+                caption: 'Sure ka di mo ako crush noon?',
+                date: 'April 2022'
+            },
+            {
+                type: 'image',
+                url: 'https://image2url.com/r2/default/images/1769337203610-f8638ccb-7183-44f4-962b-d61783c8f2dd.jpg',
+                caption: 'Wala lang, cute mo here',
+                date: 'May 2024'
+            },
+            {
+                type: 'image',
+                url: 'https://image2url.com/r2/default/images/1769337566317-4a1412b7-0abb-4beb-88a3-f4691cb81bdd.png',
+                caption: 'Our Little selves',
+                date: 'ewan ko'
+            }
+        ];
+
+        let currentMediaIndex = 0;
+
+        function renderGallery() {
+            const gallery = document.getElementById('gallery');
+            gallery.innerHTML = mediaItems.map((item, index) => `
+                <div class="media-card" onclick="openModal(${index})">
+                    <div class="media-container">
+                        ${item.type === 'image' 
+                            ? `<img src="${item.url}" alt="${item.caption}">`
+                            : `<video src="${item.url}" muted></video>
+                               <div class="play-icon">▶</div>`
+                        }
+                    </div>
+                    <div class="media-info">
+                        <div class="media-caption">${item.caption}</div>
+                        <div class="media-date">${item.date}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openModal(index) {
+            currentMediaIndex = index;
+            const item = mediaItems[index];
+            const modalContent = document.getElementById('modalContent');
+            const modalCaption = document.getElementById('modalCaption');
+
+            modalContent.innerHTML = item.type === 'image'
+                ? `<img src="${item.url}" alt="${item.caption}">`
+                : `<video src="${item.url}" controls autoplay></video>`;
+            
+            modalCaption.textContent = item.caption;
+            document.getElementById('modal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+            document.getElementById('modalContent').innerHTML = '';
+        }
+
+        function navigateMedia(direction) {
+            currentMediaIndex += direction;
+            if (currentMediaIndex < 0) currentMediaIndex = mediaItems.length - 1;
+            if (currentMediaIndex >= mediaItems.length) currentMediaIndex = 0;
+            openModal(currentMediaIndex);
+        }
+
+        document.getElementById('modal').addEventListener('click', (e) => {
+            if (e.target.id === 'modal') closeModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (document.getElementById('modal').classList.contains('active')) {
+                if (e.key === 'Escape') closeModal();
+                if (e.key === 'ArrowLeft') navigateMedia(-1);
+                if (e.key === 'ArrowRight') navigateMedia(1);
+            }
+        });
+
+        renderGallery();
+    </script>
+</body>
+</html>

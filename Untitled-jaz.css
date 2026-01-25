@@ -1,0 +1,94 @@
+:root {
+
+background: linear-gradient(to right, #e072bb 0%, #e64c99 30%, #ac316ffd 70%, #a02c66 100%);
+
+}
+
+.overlay-stickers {
+    position: fixed;           /* Stays in place when scrolling */
+    top: 100;                    /* Start from top of screen */
+    left: 10;                   /* Start from left of screen */
+    width: 100%;               /* Full width */
+    height: 100%;              /* Full height */
+    pointer-events: none;      /* Don't block clicks on content below */
+    z-index: 9999;            /* Very high - appears above everything */
+    overflow: hidden;          /* Hide anything outside bounds */
+}
+
+/* Base sticker styling */
+.sticker {
+    position: absolute;                              /* Position anywhere in overlay */
+    opacity: 0.9;                                    /* 90% visible, 10% transparent */
+    transition: all 0.3s ease;                       /* Smooth animations */
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2)); /* Shadow effect */
+    pointer-events: auto;                            /* Stickers can be hovered */
+}
+
+/* Hover effect - makes stickers interactive */
+.sticker:hover {
+    opacity: 1;                                      /* Fully visible */
+    filter: drop-shadow(0 8px 16px rgba(0,0,0,0.3)); /* Bigger shadow */
+    transform: scale(1.15) !important;               /* Grow 15% bigger */
+}
+
+/* Sticker 1 - Top Left */
+.sticker-1 {
+    width: 280px;                      /* Size */
+    top: 3%;                           /* 3% from top */
+    left: 2%;                          /* 2% from left */
+    transform: rotate(-15deg);         /* Tilted left 15 degrees */
+    animation: none;  /* Floating animation */
+}
+
+/* Sticker 2 - Top Right */
+.sticker-2 {
+    width: 260px;                      /* Size */
+    top: 5%;                           /* 5% from top */
+    right: 3%;                         /* 3% from right */
+    transform: rotate(18deg);          /* Tilted right 18 degrees */
+    animation:none;  /* Floating animation */
+}
+
+/* Sticker 3 - Bottom Right */
+.sticker-3 {
+    width: 250px;                      /* Size */
+    bottom: 8%;                        /* 8% from bottom */
+    right: 5%;                         /* 5% from right */
+    transform: rotate(-10deg);         /* Tilted left 10 degrees */
+    animation: none; /* Floating animation */
+}
+
+/* Floating animations for each sticker */
+@keyframes float1 {
+    0%, 100% { 
+        transform: translateY(0) rotate(-15deg);      /* Start/End position */
+    }
+    50% { 
+        transform: translateY(-20px) rotate(-15deg);  /* Middle - move up 20px */
+    }
+}
+
+@keyframes float2 {
+    0%, 100% { 
+        transform: translateY(0) rotate(18deg); 
+    }
+    50% { 
+        transform: translateY(-25px) rotate(18deg);   /* Move up 25px */
+    }
+}
+
+@keyframes float3 {
+    0%, 100% { 
+        transform: translateY(0) rotate(-10deg); 
+    }
+    50% { 
+        transform: translateY(-18px) rotate(-10deg);  /* Move up 18px */
+    }
+}
+
+/* Mobile responsiveness - smaller stickers on phones */
+@media (max-width: 768px) {
+    .sticker-1 { width: 80px; }   /* Shrink to 80px */
+    .sticker-2 { width: 70px; }   /* Shrink to 70px */
+    .sticker-3 { width: 65px; }   /* Shrink to 65px */
+}
