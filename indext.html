@@ -14,11 +14,14 @@
         }
 
         body {
-            font-family: 'Rae Dunn', sans-serif;
-            background: linear-gradient(135deg, #e072bb 50%, #e07fd0 50%);
-            min-height: 100vh;
-        }
-
+    font-family: 'Rae Dunn', sans-serif;
+    background-image: url('https://png.pngtree.com/thumb_back/fh260/background/20201208/pngtree-pink-paper-marble-texture-background-image_506805.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+}
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -28,7 +31,7 @@
         .message-dashboard {
             background: rgb(233, 122, 196);
             border-radius: 20px;
-            padding: 40px;
+            padding: 30px;
             margin-bottom: 30px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.3);
             text-align: center;
@@ -264,8 +267,8 @@
 <body>
   <div class="overlay-stickers">
     <img src="https://image2url.com/r2/default/images/1769338538290-cad4bc41-9831-4f94-b578-449c5c93003f.png" class="sticker sticker-1" alt="Sticker 1">
-    <img src="https://image2url.com/r2/default/images/1769338106755-f44652c8-7d27-44ba-89f7-d00e221fd1c7.png" class="sticker sticker-2" alt="Sticker 2">
-    <img src="https://image2url.com/r2/default/images/1769338341261-35bba1a4-3576-485e-98f3-9d3acd0f081a.png" class="sticker sticker-3" alt="Sticker 3">
+<img src="https://image2url.com/r2/default/images/1769338106755-f44652c8-7d27-44ba-89f7-d00e221fd1c7.png" class="sticker sticker-2" alt="Sticker 2" onclick="openStickerImage()">
+    <img src="https://image2url.com/r2/default/images/1769338341261-35bba1a4-3576-485e-98f3-9d3acd0f081a.png" class="sticker sticker-3" alt="Sticker 3"onclick="openStickerImage()">
 </div
 
     <div class="container">
@@ -382,6 +385,14 @@
             if (currentMediaIndex < 0) currentMediaIndex = mediaItems.length - 1;
             if (currentMediaIndex >= mediaItems.length) currentMediaIndex = 0;
             openModal(currentMediaIndex);
+        }
+        function openStickerImage() {
+            const modalContent = document.getElementById('modalContent');
+            const modalCaption = document.getElementById('modalCaption');
+            
+            modalContent.innerHTML = `<img src="https://image2url.com/r2/default/images/1770362191412-cee2a18a-8a36-4a42-92e2-f63d09d35699.png" alt="Special Image">`;
+            modalCaption.textContent = '';
+            document.getElementById('modal').classList.add('active');
         }
 
         document.getElementById('modal').addEventListener('click', (e) => {
